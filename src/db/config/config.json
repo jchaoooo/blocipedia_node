@@ -1,0 +1,30 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "blocipedia-dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "blocipedia-test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "jchaoooo-blocipedia",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorsAliases": false,
+    "db": "process.env.https://data.heroku.com/datastores/63e7a24f-2918-4b1c-b93e-ef9dc3d451e1"
+  }
+}
