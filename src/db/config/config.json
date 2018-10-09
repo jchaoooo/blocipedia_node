@@ -25,6 +25,6 @@
     "dialect": "postgres",
     "logging": false,
     "operatorsAliases": false,
-    "db": "process.env.https://data.heroku.com/datastores/63e7a24f-2918-4b1c-b93e-ef9dc3d451e1"
+    "use_env_variable": "DATABASE_URL"
   }
 }
