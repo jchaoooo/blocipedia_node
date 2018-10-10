@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "test": "SET NODE_ENV=test && jasmine",
-    "start": "nodemon src/server.js"
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jchaoooo/blocipedia_node#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.0",
@@ -34,7 +35,8 @@
     "passport-local": "^1.0.0",
     "pg": "^7.4.1",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.32.6"
+    "sequelize": "^4.32.6",
+    "sequelize-cli": "^4.1.1"
   },
   "devDependencies": {
     "faker": "^4.1.0",
