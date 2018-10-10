@@ -1,6 +1,6 @@
 const userQueries = require("../db/queries.users.js");
 const passport = require("passport");
-const sgMail = require("@sendgrid/mail");
+
 
 module.exports = {
   signUp(req, res, next) {
@@ -17,21 +17,12 @@ module.exports = {
 
     userQueries.createUser(newUser, (err, user) => {
       if(err) {
-        req.flash("error", err);
+        req.flash("notice", "This email already exists");
         res.redirect("/users/sign_up");
       } else {
         passport.authenticate("local")(req, res, () => {
-          req.flash("notice", "You've successfully signed up!");
+          req.flash("notice", `You've successfully signed up, a confirmation email has been sent!`);
           res.redirect("/");
-          sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-          const msg = {
-            to: newUser.email,
-            from: `members@blocipedia.com`,
-            subject: "You've signed up with Blocipedia!",
-            text: "Log in and start collaborating on wikis!",
-            html: '<strong>Log in and start collaborating on wikis!</strong>'
-          };
-          sgMail.send(msg);
         })
       }
     });
