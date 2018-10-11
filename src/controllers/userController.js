@@ -9,7 +9,7 @@ module.exports = {
 
   create(req, res, next) {
     let newUser = {
-      name: req.body.name,
+      username: req.body.username,
       email: req.body.email,
       password: req.body.password,
       passwordConfirmation: req.body.passwordConfirmation
