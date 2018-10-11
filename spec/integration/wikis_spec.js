@@ -151,4 +151,27 @@ describe("routes : wikis", () => {
       });
     });
   });
+
+  describe("POST /wikis/:id/update", () => {
+    it("should update the wiki with the given values", (done) => {
+      const options = {
+        url: `${base}/${this.wiki.id}/update`,
+        form: {
+          title: "Band Practice Today",
+          body: "There are so many instruments!",
+          private: false
+        }
+      };
+
+      request.post(options, (err, res, body) => {
+        expect(err).toBeNull();
+
+        Wiki.findOne({ where: {id: this.wiki.id }})
+        .then((wiki) => {
+          expect(wiki.title).toBe("Band Practice Today");
+          done();
+        });
+      });
+    });
+  });
 });
