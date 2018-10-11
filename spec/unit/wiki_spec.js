@@ -53,7 +53,7 @@ describe("Wiki", () => {
       });
     });
 
-    it("should not create a post with missing title, body, private boolean, or assigned user", (done) => {
+    it("should not create a wiki with missing title, body, private boolean, or assigned user", (done) => {
       Wiki.create({
         title: "Learn to code"
       })
@@ -62,8 +62,6 @@ describe("Wiki", () => {
       })
       .catch((err) => {
         expect(err.message).toContain("Wiki.body cannot be null");
-        expect(err.message).toContain("Wiki.private cannot be null");
-        expect(err.message).toContain("Wiki.userId cannot be null");
         done();
       });
     });
