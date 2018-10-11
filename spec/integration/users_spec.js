@@ -31,7 +31,7 @@ describe("routes : users", () => {
       const options = {
         url: base,
         form: {
-          name: "Bob Dole",
+          username: "bobdole",
           email: "user@example.com",
           password: "1234567890"
         }
@@ -40,7 +40,7 @@ describe("routes : users", () => {
         User.findOne({ where: {email: "user@example.com"}})
         .then((user) => {
           expect(user).not.toBeNull();
-          expect(user.name).toBe("Bob Dole");
+          expect(user.username).toBe("bobdole");
           expect(user.email).toBe("user@example.com");
           expect(user.id).toBe(1);
           done();
@@ -56,7 +56,7 @@ describe("routes : users", () => {
       request.post({
         url: base,
         form: {
-          name: "bobby",
+          username: "bobby",
           email: "no",
           password: "123456789"
         }
@@ -70,6 +70,16 @@ describe("routes : users", () => {
           console.log(err);
           done();
         });
+      });
+    });
+  });
+
+  describe("GET /users/sign_in", () => {
+    it("should render a view with a sign in form", (done) => {
+      request.get(`${base}/sign_in`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Sign in");
+        done();
       });
     });
   });

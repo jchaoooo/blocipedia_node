@@ -16,13 +16,13 @@ describe("User", () => {
   describe("#create()", () => {
     it("should create a User object with a valid email and password", (done) => {
       User.create({
-        name: "Bob Dole",
+        username: "bobdole",
         email: "user@example.com",
         password: "1234567890"
       })
       .then((user) => {
+        expect(user.username).toBe("bobdole");
         expect(user.email).toBe("user@example.com");
-        expect(user.name).toBe("Bob Dole");
         expect(user.id).toBe(1);
         done();
       })
@@ -34,7 +34,7 @@ describe("User", () => {
 
     it("should not create a user with invalid email or password", (done) => {
       User.create({
-        name: "Bob Dole",
+        username: "bobdole",
         email: "Hello to you!",
         password: "1234567890"
       })
@@ -49,13 +49,13 @@ describe("User", () => {
 
     it("should not create a user with an email already taken", (done) => {
       User.create({
-        name: "Bob Johnson",
+        username: "bobjohnson",
         email: "user@example.com",
         password: "1234567890"
       })
       .then((user) => {
         User.create({
-          name: "Bob Johnson",
+          username: "bobjohnson",
           email: "user@example.com",
           password: "password"
         })
