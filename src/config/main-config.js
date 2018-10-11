@@ -8,6 +8,8 @@ const session = require("express-session");
 const flash = require("express-flash");
 const passportConfig = require("./passport-config");
 
+console.log("THIS IS THE COOKIE" + process.env.cookieSecret);
+
 module.exports = {
   init(app, express) {
     app.set("views", viewsFolder);
