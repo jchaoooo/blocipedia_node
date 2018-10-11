@@ -18,7 +18,7 @@ module.exports = {
 
     userQueries.createUser(newUser, (err, user) => {
       if(err) {
-        req.flash("notice", "This email already exists");
+        req.flash("notice", "Email or username already exists");
         res.redirect("/users/sign_up");
       } else {
         passport.authenticate("local")(req, res, () => {
