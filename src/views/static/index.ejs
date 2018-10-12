@@ -1,29 +1,47 @@
-<!DOCTYPE html>
-<html lang='en'>
-    <head>
-        <% include ./partials/head.ejs %>
-    </head>
-    <body>
-        <% include ./partials/navbar.ejs %>
-          <!-- Page Content -->
-      <main class="container">
-        <% include ./partials/messages.ejs %>
 
-        <!-- Jumbotron Header -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <% include ./partials/head.ejs %>
+    </head>
+
+    <body>
+        <!-- Navigation -->
+      <% include ./partials/navbar.ejs %>
+
+      <main class="container">
+
+          <!-- Jumbotron Header -->
         <header class="jumbotron my-4">
-          <h1 class="display-3">Welcome to Blocipedia</h1>
-          <p class="lead">An application for users to share information.</p>
-          <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign Up</a>
+            <h1 class="display-3">Welcome to Blocipedia</h1>
+            <p class="lead">An application for collaborative, community-sourced content</p>
+
         </header>
 
-        <!-- Page Features -->
         <section class="row text-center">
 
+            <section class="col-lg-4">
+                <h4 class="card-title">Create Wikis</h4>
+                <p class="card-text">Create Wikis to share ideas and knowlege</p>
+                <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign Up</a>
+            </section>
+
+            <section class="col-lg-4">
+                <h4 class="card-text">Collaborate</h4>
+                <p class="card-text">Collaborate with other users to improve Wikis</p>
+            </section>
+
+            <section class="col-lg-4">
+                    <h4 class="card-text">Create Private Wikis</h4>
+                    <p class="card-text">Join the Premium Community to create and collaborate on private Wikis</p>
+            </section>
+
         </section>
-        <!-- /.row -->
 
       </main>
-      <!-- /.container -->
+
     <% include ./partials/baseScripts.ejs %>
+
     </body>
+
 </html>
