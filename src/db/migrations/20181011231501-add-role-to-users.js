@@ -2,15 +2,14 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    up: (queryInterface, Sequelize) => {
-      return queryInterface.addColumn(
-        'User',
-        'role',
-        {
-          type: Sequelize.STRING,
-          allowNull: false,
-          defaultValue: "standard"
-    }
+    return queryInterface.addColumn(
+      'Users',
+      'role',
+      {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: "standard"
+  }
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -18,7 +17,7 @@ module.exports = {
       Example:
       return queryInterface.createTable('users', { id: Sequelize.INTEGER });
     */
-  },
+  )},
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn('Users', 'role');
