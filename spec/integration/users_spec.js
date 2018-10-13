@@ -83,4 +83,14 @@ describe("routes : users", () => {
       });
     });
   });
+
+  describe("GET /users/upgrade", () => {
+    it("should render a view with the upgrade payment option", (done) => {
+      request.get(`${base}/upgrade`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Upgrade your membership to Premium");
+        done();
+      });
+    });
+  });
 });

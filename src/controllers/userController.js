@@ -2,6 +2,10 @@ const userQueries = require("../db/queries.users.js");
 const passport = require("passport");
 const User = require("../db/models").User;
 
+const secretKey = process.env.SECRET_KEY;
+const publishableKey = process.env.PUBLISHABLE_KEY;
+const stripe = require("stripe")(secretKey);
+
 
 module.exports = {
   signUp(req, res, next) {
@@ -49,5 +53,46 @@ module.exports = {
     req.logout();
     req.flash("notice", "You've successfully signed out!");
     res.redirect("/");
-  }
+  },
+
+  show(req, res, next) {
+    userQueries.getUser(req.params.id, (err, user) => {
+      if(err || user === null) {
+        req.flash("notice", "No user found with that ID");
+        res.redirect("/");
+      } else {
+        res.render("users/show", {user});
+      }
+    })
+  },
+
+/*  payment(req, res, next) {
+    const token = req.body.stripeToken;
+    const email = req.body.stripeEmail;
+    User.findOne({
+      where: {email: email}
+    })
+    .then((user) => {
+      if(user) {
+        const charge = stripe.charges.create({
+          amount: 1500,
+          currency: "USD",
+          description: "Blocipedia Premium Membership",
+          source: token
+        })
+        .then((result) => {
+          if(result) {
+            userQueries.toggleRole(user);
+            req.flash("notice", "Congrats, you are now a Premium Member!");
+            res.redirect("/");
+          } else {
+            req.flash("notice", "Something happened, we were not able to upgrade you");
+            res.redirect("/users/upgrade", {user});
+          }
+        })
+      }
+    })
+  },*/
+
+
 }
