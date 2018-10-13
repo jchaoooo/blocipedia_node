@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+     <% include ../static/partials/navbar.ejs %>
+     <main class="container">
+       <% include ../static/partials/messages.ejs %>
+
+       <% if(currentUser && currentUser.role == "standard"){ %>
+        <h3>Upgrade your membership to Premium</h3>
+        <h4>As a Premium Member you will be able to:</h4>
+        <ul>
+            <li>Create Private Wikis</li>
+            <li>Colaborate with other Premium Members on Private Wikis</li>
+        </ul>
+         <form action="/users/<%currentUser.id%>/upgrade" method="POST">
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="<%=publishableKey%>"
+                data-amount="1500"
+                data-name="Blocipedia"
+                data-description="Blocipedia Premium Membership"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto">
+            </script>
+        </form>
+    <%  } %>
+     </main>
+     <% include ../static/partials/baseScripts.ejs %>
+   </body>
+   </html>

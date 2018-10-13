@@ -10,13 +10,14 @@ describe("routes : wikis", () => {
   beforeEach((done) => {
     this.wiki;
 
-    sequelize.sync({force:true}).then((res) => {
+    sequelize.sync({force:true}).then(() => {
+
       Wiki.create({
         title: "First wiki",
         body: "This is my first wiki",
         private: false,
       })
-      .then((wiki) => {
+      .then((res) => {
         this.wiki = wiki;
         done();
       })
