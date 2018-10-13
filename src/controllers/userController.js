@@ -2,9 +2,9 @@ const userQueries = require("../db/queries.users.js");
 const passport = require("passport");
 const User = require("../db/models").User;
 
-const secretKey = process.env.SECRET_KEY;
+const secretKey = "sk_test_VOG1xUiVATaIMZYM4W3N891w";
 const publicKey = process.env.PUBLISHABLE_KEY;
-const stripe = require("stripe")(secretKey);
+const stripe = require("stripe")("sk_test_VOG1xUiVATaIMZYM4W3N891w");
 
 
 module.exports = {
@@ -77,36 +77,30 @@ module.exports = {
   },
 
   upgrade(req, res, next) {
-    const token = req.body.stripeToken;
-    const email = req.body.stripeEmail;
-    User.findOne({
-      where: {email: email}
-    })
-    .then((user) => {
-      if(user) {
-        const charge = stripe.charges.create({
-          amount: 1500,
-          currency: "USD",
-          description: "Upgrade to Premium Membership",
-          source: token,
-          receipt_email: req.body.email
-        })
-        .then((result) => {
-          if(result) {
-            userQueries.toggleRole(user);
-            req.flash("notice", "Congrats, you are now a Premium Member!");
-            res.redirect("/");
-          } else {
-            req.flash("notice", "Somethings happened, the upgrade was unsuccessful");
-            res.redirect("/users/show", {user})
-          }
-        })
-      } else {
-        req.flash("notice", "Upgrade unsuccessful");
-        res.redirect("/users/upgrade")
-      }
-    })
-  },
+  stripe.customers.create({
+      email: req.body.stripeEmail,
+  }).then((customer) => {
+    return stripe.customers.createSource(customer.id, {source: req.body.stripeToken})
+  }).then((source) => {
+    return stripe.charges.create({
+      amount: 1500,
+      currency: "USD",
+      description: "Upgrade to Premium Membership",
+      customer: source.customer
+    });
+  }).then((charge) => {
+    if(charge) {
+      let action = "upgrade";
+      userQueries.toggleRole(user, action);
+      req.flash("notice", "Congrats, you are now a Premium Member!");
+      res.redirect("/");
+    } else {
+      req.flash("notice", "Somethings happened, the upgrade was unsuccessful");
+      res.redirect("/users/show", {user})
+    }
+  })
+},
+
 
   downgradePage(req, res, next) {
     userQueries.getUser(req.params.id, (err, user) => {
@@ -124,7 +118,8 @@ module.exports = {
     })
     .then((user) => {
       if(user) {
-        userQueries.toggleRole(user);
+        let action ="downgrade"
+        userQueries.toggleRole(user, action);
         req.flash("notice", "You are now a Standard Member");
         res.redirect("/");
       } else {

@@ -40,20 +40,22 @@ module.exports = {
     })
   },
 
-  toggleRole(user) {
+  toggleRole(user, action) {
+    let newRole;
     User.findOne({
       where: {email: user.email}
     })
     .then((user) => {
-      if(user.role === "standard") {
-        user.update({
-          role: "premium"
-        });
-      } else {
-        user.update({
-          role: "standard"
-        });
+      if(action === "upgrade") {
+        newRole = "premium"
+      } else if (action === "downgrade") {
+        newRole = "standard";
       }
+      user.update({
+        role: newRole
+      })
     })
   }
+
+
 }
