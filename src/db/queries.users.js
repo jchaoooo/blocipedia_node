@@ -38,5 +38,22 @@ module.exports = {
     .catch((err) => {
       callback(err);
     })
+  },
+
+  toggleRole(user) {
+    User.findOne({
+      where: {email: user.email}
+    })
+    .then((user) => {
+      if(user.role === "standard") {
+        user.update({
+          role: "premium"
+        });
+      } else {
+        user.update({
+          role: "standard"
+        });
+      }
+    })
   }
 }

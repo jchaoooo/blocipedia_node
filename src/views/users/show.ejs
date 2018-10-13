@@ -11,13 +11,14 @@
        <h1>Account options for <%= user.username %></h1>
 
        <h3>Your account status is: <%= user.role %></h3>
-       <!-- If current user has standard -->
-      <a href="/users/<%= user.id %>/upgrade" class="btn btn-warning">Upgrade to premium account</a>
-      <p>With a premium account, you can edit public wikis, and create and read private wikis.</p>
 
-       <!-- If current user has premium -->
-      <a href="/users/<%= user.id %>/downgrade" class="btn btn-warning">Downgrade to standard account</a>
-      <p>With a standard account, you will no longer be able to edit public wikis, or read and create private wikis.</p>
+       <% if(user.role === "standard") { %>
+               <a href="/users/<%= user.id %>/upgrade" class="btn btn-warning">Upgrade to premium account</a>
+               <p>With a premium account, you can edit public wikis, and create and read private wikis.</p>
+             <% } else { %>
+               <a href="/users/<%= user.id %>/downgrade" class="btn btn-warning">Downgrade to standard account</a>
+               <p>With a standard account, you will no longer be able to edit public wikis, or read and create private wikis.</p>
+      <% } %>
      </main>
      <% include ../static/partials/baseScripts.ejs %>
    </body>

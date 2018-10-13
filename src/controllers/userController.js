@@ -3,7 +3,7 @@ const passport = require("passport");
 const User = require("../db/models").User;
 
 const secretKey = process.env.SECRET_KEY;
-const publishableKey = process.env.PUBLISHABLE_KEY;
+const publicKey = process.env.PUBLISHABLE_KEY;
 const stripe = require("stripe")(secretKey);
 
 
@@ -66,7 +66,17 @@ module.exports = {
     })
   },
 
-/*  payment(req, res, next) {
+  upgradePage(req, res, next) {
+    userQueries.getUser(req.params.id, (err, user) => {
+      if(err || user === null) {
+        req.flash("notice", "No user found with that ID");
+      } else {
+        res.render("users/upgrade", {user});
+      }
+    })
+  },
+
+  upgrade(req, res, next) {
     const token = req.body.stripeToken;
     const email = req.body.stripeEmail;
     User.findOne({
@@ -77,8 +87,9 @@ module.exports = {
         const charge = stripe.charges.create({
           amount: 1500,
           currency: "USD",
-          description: "Blocipedia Premium Membership",
-          source: token
+          description: "Upgrade to Premium Membership",
+          source: token,
+          receipt_email: req.body.email
         })
         .then((result) => {
           if(result) {
@@ -86,13 +97,42 @@ module.exports = {
             req.flash("notice", "Congrats, you are now a Premium Member!");
             res.redirect("/");
           } else {
-            req.flash("notice", "Something happened, we were not able to upgrade you");
-            res.redirect("/users/upgrade", {user});
+            req.flash("notice", "Somethings happened, the upgrade was unsuccessful");
+            res.redirect("/users/show", {user})
           }
         })
+      } else {
+        req.flash("notice", "Upgrade unsuccessful");
+        res.redirect("/users/upgrade")
       }
     })
-  },*/
+  },
+
+  downgradePage(req, res, next) {
+    userQueries.getUser(req.params.id, (err, user) => {
+      if(err || user === null) {
+        req.flash("notice", "No user found with that ID");
+      } else {
+        res.render("users/downgrade", {user});
+      }
+    })
+  },
+
+  downgrade(req, res, next) {
+    User.findOne({
+      where: {id: req.params.id}
+    })
+    .then((user) => {
+      if(user) {
+        userQueries.toggleRole(user);
+        req.flash("notice", "You are now a Standard Member");
+        res.redirect("/");
+      } else {
+        req.flash("notice", "Something has happened, the downgrade was unsuccessful");
+        res.redirect("/users/show", {user})
+      }
+    })
+  }
 
 
 }

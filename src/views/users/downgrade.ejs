@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+     <% include ../static/partials/navbar.ejs %>
+     <main class="container">
+       <% include ../static/partials/messages.ejs %>
+       
+       <h1>Account options for <%= user.username %></h1>
+       <h3>Your account status is: <%= user.role %></h3>
+       <form action="/users/<%= user.id %>/downgrade" method="POST">
+        <button type="Submit" class="btn btn-warning">Confirm account downgrade</button>
+      </form>
+     </main>
+     <% include ../static/partials/baseScripts.ejs %>
+   </body>
+</html>
