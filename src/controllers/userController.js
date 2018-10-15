@@ -77,29 +77,33 @@ module.exports = {
   },
 
   upgrade(req, res, next) {
-  stripe.customers.create({
-      email: req.body.stripeEmail,
-  }).then((customer) => {
-    return stripe.customers.createSource(customer.id, {source: req.body.stripeToken})
-  }).then((source) => {
-    return stripe.charges.create({
-      amount: 1500,
-      currency: "USD",
-      description: "Upgrade to Premium Membership",
-      customer: source.customer
-    });
-  }).then((charge) => {
-    if(charge) {
-      let action = "upgrade";
-      userQueries.toggleRole(user, action);
-      req.flash("notice", "Congrats, you are now a Premium Member!");
-      res.redirect("/");
-    } else {
-      req.flash("notice", "Somethings happened, the upgrade was unsuccessful");
-      res.redirect("/users/show", {user})
-    }
-  })
-},
+    User.findOne({
+      where: {id: req.params.id}
+    }) .then((user) => {
+      stripe.customers.create({
+          email: req.body.stripeEmail,
+      }).then((customer) => {
+        return stripe.customers.createSource(customer.id, {source: req.body.stripeToken})
+      }).then((source) => {
+        return stripe.charges.create({
+          amount: 1500,
+          currency: "USD",
+          description: "Upgrade to Premium Membership",
+          customer: source.customer
+        });
+      }).then((charge) => {
+        if(charge) {
+          let action = "upgrade";
+          userQueries.toggleRole(user, action);
+          req.flash("notice", "Congrats, you are now a Premium Member!");
+          res.redirect("/");
+        } else {
+          req.flash("notice", "Somethings happened, the upgrade was unsuccessful");
+          res.redirect("/users/show", {user})
+        }
+      })
+    })
+  },
 
 
   downgradePage(req, res, next) {
