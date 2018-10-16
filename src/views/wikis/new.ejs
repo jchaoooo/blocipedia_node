@@ -7,6 +7,8 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
+      <% include ../static/partials/messages.ejs %>
+
       <h1>New Wiki</h1>
 <!-- #1 -->
       <form action="/wikis/create" method="post">
@@ -18,7 +20,21 @@
           <label for="body">Wiki body</label>
           <textarea rows="4" class="form-control" name="body" placeholder="Enter Post body"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <% if(currentUser && (currentUser.role === "admin" || currentUser.role === "premium")) { %>
+            <p>Public or Private Wiki?</p>
+            <div class="form-group">
+                <label for="private">Wiki Status</label>
+                <select class="form-control" name="private">
+                    <option value="false">Public</option>
+                    <option value="true">Private</option>
+                </select>
+            </div>
+        <% } %>
+
+        <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
       </form>
     </main>
 

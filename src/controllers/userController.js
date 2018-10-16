@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 const User = require("../db/models").User;
 
@@ -124,6 +125,7 @@ module.exports = {
       if(user) {
         let action ="downgrade"
         userQueries.toggleRole(user, action);
+        wikiQueries.makePublic(user);
         req.flash("notice", "You are now a Standard Member");
         res.redirect("/");
       } else {
