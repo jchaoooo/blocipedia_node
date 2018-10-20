@@ -133,7 +133,17 @@ module.exports = {
         res.redirect("/users/show", {user})
       }
     })
-  }
+  },
+
+  /*showCollaborations(req, res, next) {
+    userQueries.getUser(req.user.id, (err, result) => {
+      user = result["user"];
+      collaborations = result["collaborations"];
+
+      if(err)
+    })
+  }*/
+
 
 
 }

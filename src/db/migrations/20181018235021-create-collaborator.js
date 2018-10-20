@@ -8,10 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -22,7 +18,7 @@ module.exports = {
           as: "userId"
         }
       },
-      wikId: {
+      wikiId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         onDelete: "CASCADE",

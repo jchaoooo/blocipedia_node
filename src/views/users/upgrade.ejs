@@ -7,9 +7,9 @@
      <% include ../static/partials/navbar.ejs %>
      <main class="container">
        <% include ../static/partials/messages.ejs %>
-       <h1>Account options for <%= user.username %></h1>
-       <h3>Your account status is: <%= user.role %></h3>
-       <form action="/users/<%= user.id %>/upgrade" method="POST">
+       <h1>Account options for <%= currentUser.username %></h1>
+       <h3>Your account status is: <%= currentUser.role %></h3>
+       <form action="/users/<%= currentUser.id %>/upgrade" method="POST">
         <script
           src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key= "pk_test_dLjAE9Deafgxw8sW5AXGjYPF"
