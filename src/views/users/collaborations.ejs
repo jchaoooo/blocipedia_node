@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html>
- <head>
+  <head>
     <% include ../static/partials/head.ejs %>
-</head>
- <body>
+  </head>
+  <body>
     <% include ../static/partials/navbar.ejs %>
-
-    <main class="container">
-        <% include ../static/partials/messages.ejs %>
-
-        <h1> Collaborations</h1>
-        <ul class="list-group">
-            <% collaborations.forEach((collaboration) => {  %>
+     <main class="container">
+       <% include ../static/partials/messages.ejs %>
+         <h1> Collaborations</h1>
+         <ul class ="list-group">
+          <% collaborations.forEach((collaboration) => {  %>
             <li class="list-group-item">
-                <a href="/wikis/<%= collaboration.wikiId %>">
-                    <%= collaboration.Wiki.title %></a>
+               <a href="/wikis/<%= collaboration.wikiId %>"><%= collaboration.Wiki.title %></a>
             </li>
-            <% }) %>
+          <% }) %>
         </ul>
-    </main>
-<% include ../static/partials/baseScripts.ejs %>
-</body>
- </html>
+     </main>
+   </body>
+</html>

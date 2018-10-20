@@ -30,11 +30,20 @@
             <section class="col-lg-4">
                 <h4 class="card-text">Collaborate</h4>
                 <p class="card-text">Collaborate with other users to improve Wikis</p>
+                <% if(currentUser) { %>
+                  <a href="/users/<%= currentUser.id %>/collaborations" class="btn btn-primary btn-lg">See Collaborations</a>
+                <% } %>
             </section>
 
             <section class="col-lg-4">
                     <h4 class="card-text">Create Private Wikis</h4>
                     <p class="card-text">Join the Premium Community to create and collaborate on private Wikis</p>
+                    <% if(currentUser && currentUser.role != "standard") { %>
+                      <a href="/wikis/private" class="btn btn-primary btn-lg">See Private Wikis</a>
+                    <% } %>
+                    <% if(currentUser && currentUser.role == "standard") { %>
+                      <a href="/users/<%= currentUser.id %>" class="btn btn-primary btn-lg">Upgrade to Premium</a>
+                    <% } %>
             </section>
 
         </section>
