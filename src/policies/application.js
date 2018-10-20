@@ -7,7 +7,7 @@ module.exports = class ApplicationPolicy {
   }
 
  // #2
-  _isOwner() {
+/*  _isOwner() {
     return this.record && (this.record.userId == this.user.id);
   }
 
@@ -29,7 +29,7 @@ module.exports = class ApplicationPolicy {
 
   _isPrivate() {
     return this.record.private === true;
-  }
+  }*/
 
  // #3
   new() {

@@ -19,6 +19,12 @@
                <a href="/users/<%= user.id %>/downgrade" class="btn btn-warning">Downgrade to standard account</a>
                <p>With a standard account, you will no longer be able to edit public wikis, or read and create private wikis.</p>
       <% } %>
+
+      <div>
+        <h4>Your Wiki Collaborations</h4>
+        <a href="/users/collaborations" class="btn btn-primary">See Collaborations</a>
+      </div>
+
      </main>
      <% include ../static/partials/baseScripts.ejs %>
    </body>

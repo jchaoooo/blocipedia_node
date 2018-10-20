@@ -47,8 +47,11 @@ module.exports = {
   },
 
   show(req, res, next) {
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
-      if(err || wiki == null) {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      wiki = result["wiki"];
+      collaborators = result["collaborators"];
+
+      if(err || result.wiki == null) {
         res.redirect(404, "/");
       } else {
         wiki.body = markdown.toHTML(wiki.body);
